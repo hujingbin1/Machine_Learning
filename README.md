@@ -35,6 +35,14 @@ correlation-all.txt 对训练集日期的数据的相关性分析
 
 correlation-all-sort.txt 对训练集日期的数据的相关性分析的排序版,排序规则，按照corr绝对值进行降序
 
-test.txt 对所有训练集日期，制造feature
+feature-create.txt 对所有训练集日期，制造feature
 
+目前的计算规则比较简单，主要是除法与取对数。
 计算规则，对于任意两个属性A,B,分别计算(A/B),(B/A),log(A/B),log(B/A)和预测值fret12的corr属性（即相关系数），按照绝对值的降序排列
+
+关于feature-create.txt的左边一列数据
+
+log-nAddBuy-nCxlBuy   表示 log(nAddBuy/nCxlBuy)
+
+low-open              表示 low/open
+
