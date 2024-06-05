@@ -22,3 +22,19 @@ reference/pytorch 之前学习pytorch写的一点东西 可以参考这个pipeli
 reference/Time-Series-Forecast 参考别人的代码仓库
 
 .gitignore 忽略上传到git的文件格式
+
+## 数据分析 
+### 主要代码文件：`step1_data_analysis/da.ipynb`
+author:赵子豪
+对数据的简单处理
+corr-20230601.txt 对20230601该日的数据的相关性分析
+
+corr-20230601.txt 对20230601该日的数据的相关性分析的排序版,排序规则，按照corr绝对值进行降序
+
+correlation-all.txt 对训练集日期的数据的相关性分析
+
+correlation-all-sort.txt 对训练集日期的数据的相关性分析的排序版,排序规则，按照corr绝对值进行降序
+
+test.txt 对所有训练集日期，制造feature
+
+计算规则，对于任意两个属性A,B,分别计算(A/B),(B/A),log(A/B),log(B/A)和预测值fret12的corr属性（即相关系数），按照绝对值的降序排列
