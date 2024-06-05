@@ -1,0 +1,24 @@
+# 股票时序数据远程——机器学习大作业
+
+## 环境
+
+Python: 3.10
+
+参考meow/requirements.txt 进行环境配置
+
+"pip install -r requirements.txt"
+
+## 数据集
+
+将数据集压缩文件放入meow/dataset/data_zip, 解压文件放于meow/h5路径下， 运行meow/dataset/h5_to_csv路径下的id.py， 获取h5文件名并写入txt ，运行meow/dataset/h5_to_csv路径下的data_process.py, 将所有h5文件转为csv文件， 放置于meow/dataset/csv路径下
+
+## 文件路径说明
+
+meow/dataset 数据集
+meow/step* 每一步处理的代码（见名知意）
+meow/test 测试文件或者数据，放临时文件
+
+reference/pytorch 之前学习pytorch写的一点东西 可以参考这个pipeline
+reference/Time-Series-Forecast 参考别人的代码仓库
+
+.gitignore 忽略上传到git的文件格式
