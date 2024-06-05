@@ -32,8 +32,9 @@ class MeowEngine(object):
         self.model.fit(xdf, ydf)
 
     def predict(self, xdf):
-        return self.model.predict(torch.tensor(xdf.to_numpy(), dtype=torch.float32).to(device))
-
+        # return self.model.predict(torch.tensor(xdf.to_numpy(), dtype=torch.float32).to(device))
+        return self.model.predict(xdf)
+    
     def eval(self, startDate, endDate):
         log.inf("Running model evaluation...")
         dates = self.calendar.range(startDate, endDate)
@@ -44,6 +45,6 @@ class MeowEngine(object):
 
 if __name__ == "__main__":
     engine = MeowEngine(h5dir="./dataset/h5", cacheDir=None)
-    # engine.fit(20230601, 20231129)
+    engine.fit(20230601, 20231129)
     engine.eval(20231201, 20231229)
 
