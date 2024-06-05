@@ -23,8 +23,10 @@ reference/Time-Series-Forecast 参考别人的代码仓库
 
 .gitignore 忽略上传到git的文件格式
 
-## 数据分析 
+## 数据分析
+
 ### 主要代码文件：`step1_data_analysis/da.ipynb`
+
 author:赵子豪
 对数据的简单处理
 corr-20230601.txt 对20230601该日的数据的相关性分析
@@ -46,3 +48,15 @@ log-nAddBuy-nCxlBuy   表示 log(nAddBuy/nCxlBuy)
 
 low-open              表示 low/open
 
+## 模型建立
+
+author:胡景斌
+
+简单整理了一下模型文件
+meow/step3_model_train/lstm.py 为LSTM网络建立文件，可以在这里修改网络结构
+
+meow/mdl.py为Ridge线性模型
+meow/mdl_lstm.py为LSTM模型
+
+`python meow.py`训练Ridge线性回归模型 并进行推理
+`python meow_lstm.py`训练LSTM模型 并进行推理
