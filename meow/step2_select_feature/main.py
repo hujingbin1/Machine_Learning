@@ -2,6 +2,24 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
+# Base Features:
+
+# 价格相关特征：
+# midpx 移动平均和标准差
+# lastpx 移动平均和标准差
+# 对数收益率和波动率
+
+# 交易相关特征：
+# 主买、主卖交易的数量、金额、最高/最低价等的移动平均和标准差
+
+# 市场强度和流动性特征：
+# 买卖价差、买卖量差、总成交量和不平衡度
+
+# 时间特征：
+# 时间相关特征，如小时、分钟等
+
+# 聚合特征：
+# 不同时间窗口的聚合统计特征
 
 def add_features(df):
     # Price-related features
