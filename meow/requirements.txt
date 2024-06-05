@@ -1,8 +1,0 @@
-pandas
-scikit-learn
-tables
-h5py
-torch
-torchvision
-torchaudio
-matplotlib
