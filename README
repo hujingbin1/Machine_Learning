@@ -10,7 +10,7 @@ Python: 3.10
 
 ## 数据集
 
-将数据集压缩文件放入meow/dataset/data_zip, 解压文件放于meow/h5路径下， 运行meow/dataset/h5_to_csv路径下的id.py， 获取h5文件名并写入txt ，运行meow/dataset/h5_to_csv路径下的data_process.py, 将所有h5文件转为csv文件， 放置于meow/dataset/csv路径下
+将数据集压缩文件放入meow/dataset/data_zip, 解压文件放于meow/dataset/h5路径下， 运行meow/dataset/h5_to_csv路径下的id.py， 获取h5文件名并写入txt ，运行meow/dataset/h5_to_csv路径下的data_process.py, 将所有h5文件转为csv文件， 放置于meow/dataset/csv路径下
 
 ## 文件路径说明
 
