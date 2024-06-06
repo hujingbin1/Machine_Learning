@@ -2,7 +2,7 @@ import os
 from log import log
 from dl import MeowDataLoader
 from feat_all_feature import MeowFeatureGenerator
-from mdl_lstm import MeowModel
+from mdl import MeowModel
 from eval import MeowEvaluator
 from tradingcalendar import Calendar
 import torch
@@ -32,8 +32,8 @@ class MeowEngine(object):
         self.model.fit(xdf, ydf)
 
     def predict(self, xdf):
-        return self.model.predict(torch.tensor(xdf.to_numpy(), dtype=torch.float32).unsqueeze(1).to(device))
-        # return self.model.predict(xdf)
+        # return self.model.predict(torch.tensor(xdf.to_numpy(), dtype=torch.float32).unsqueeze(1).to(device))
+        return self.model.predict(xdf)
     
     def eval(self, startDate, endDate):
         log.inf("Running model evaluation...")
@@ -46,5 +46,5 @@ class MeowEngine(object):
 if __name__ == "__main__":
     engine = MeowEngine(h5dir="./dataset/h5", cacheDir=None)
     engine.fit(20230601, 20231129)
-    # engine.eval(20231201, 20231229)
+    engine.eval(20231201, 20231229)
 
