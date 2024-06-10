@@ -1,4 +1,5 @@
-Correlation with fret12: nCxlSell             0.016507
+Correlation with fret12: 
+nCxlSell             0.016507
 nTradeSell           0.015001
 cxlSellTurnover      0.014054
 cxlSellQty           0.012334

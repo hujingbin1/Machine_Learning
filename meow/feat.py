@@ -2,6 +2,7 @@ import os
 import numpy as np
 import pandas as pd
 from log import log
+import sys
 
 
 class MeowFeatureGenerator(object):
@@ -34,4 +35,7 @@ class MeowFeatureGenerator(object):
         df.loc[:, "lagret12"] = df["bret12"] - df["cx_bret12"]
         xdf = df[self.mcols + self.featureNames()].set_index(self.mcols)
         ydf = df[self.mcols + [self.ycol]].set_index(self.mcols)
+        # print(xdf.head());
+        # print(ydf.head())
+        # sys.exit()
         return xdf.fillna(0), ydf.fillna(0)

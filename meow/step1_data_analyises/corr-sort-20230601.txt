@@ -1,4 +1,5 @@
-Correlation with fret12: nAddBuy              0.096086
+Correlation with fret12: 
+nAddBuy              0.096086
 addSellTurnover      0.094807
 tradeSellTurnover    0.092000
 nTradeSell           0.090254

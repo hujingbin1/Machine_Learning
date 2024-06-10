@@ -48,6 +48,8 @@ log-nAddBuy-nCxlBuy   表示 log(nAddBuy/nCxlBuy)
 
 low-open              表示 low/open
 
+
+
 ## 模型建立
 
 author:胡景斌
@@ -60,3 +62,13 @@ meow/mdl_lstm.py为LSTM模型
 
 `python meow.py`训练Ridge线性回归模型 并进行推理
 `python meow_lstm.py`训练LSTM模型 并进行推理
+
+### 修改记录
+
+#### feat_all_feature
+
+zzh在feat_all_feature中增加了部分特征，通过注释将他们进行了简单地分类。
+
+留一个疑问，对于NA和INF的情况，填0，还是填1会比较合适？
+
+对于log计算，为了避免log(x)，在x趋近于0的时候，log(x)接近负无穷，所以在x小于1的时候，置x=1,但是对于普通的除法，有必要在x<1的时候置1吗？
