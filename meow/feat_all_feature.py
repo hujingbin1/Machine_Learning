@@ -93,10 +93,31 @@ class MeowFeatureGenerator(object):
             "trend-bid19",
             "trend-ask19",
             "trend-btr10_19", #因为atr10_19在上面的属性中，所以也采用这个属性。
+            #diff类特征,(A-B)/(A+B),注意到有部分数据高度相关，人为剔除了几个。
+            "diff(midpx-tradeBuyHigh)",
+            "diff(midpx-tradeSellHigh)",
+            "diff(midpx-lastpx)",
+            "diff(lastpx-ask0)",
+            "diff(open-bid0)",
+            "diff(low-ask0)",
+            "diff(open-low)",
+            ####下面是几个认为感觉有意义的
+            "diff(nAddBuy-nAddSell)",
+            "diff(addBuyQty-addSellQty)",
+            "diff(addBuyTurnover-addSellTurnover)",
+            "diff(nCxlBuy-nCxlSell)",
+            "diff(cxlBuyQty-cxlSellQty)",
+            "diff(cxlBuyTurnover-cxlSellTurnover)",
+            "diff(nTradeBuy-nTradeSell)",
+            "diff(tradeBuyQty-tradeSellQty)",
+            "diff(tradeBuyTurnover-tradeSellTurnover)"
             
+            
+            ###手工制作特征
             
             
             ### 基础特征
+            
             
         ]
 
@@ -377,11 +398,73 @@ class MeowFeatureGenerator(object):
         df.loc[:,"trend-btr10_19"] = deal_Na_Inf(col[55])
         feature["trend-btr10_19"] = df.loc[:,"trend-btr10_19"]
         
+        ###diff类特征，计算公式(A-B)/(A+B)
+        ###feature56
+        col[56] = (df["midpx"]-df["tradeBuyHigh"])/ (df["midpx"]+df["tradeBuyHigh"])
+        df.loc[:,"diff(midpx-tradeBuyHigh)"] = deal_Na_Inf(col[56])
+        feature["diff(midpx-tradeBuyHigh)"] = df.loc[:,"diff(midpx-tradeBuyHigh)"]
+        ###feature57
+        col[57] = (df["midpx"]-df["tradeSellHigh"])/ (df["midpx"]+df["tradeSellHigh"])
+        df.loc[:,"diff(midpx-tradeSellHigh)"] = deal_Na_Inf(col[57])
+        feature["diff(midpx-tradeSellHigh)"] = df.loc[:,"diff(midpx-tradeSellHigh)"]
+        ###feature58
+        col[58] = (df["midpx"]-df["lastpx"])/ (df["midpx"]+df["lastpx"])
+        df.loc[:,"diff(midpx-lastpx)"] = deal_Na_Inf(col[58])
+        feature["diff(midpx-lastpx)"] = df.loc[:,"diff(midpx-lastpx)"]
+        ###feature59
+        col[59] = (df["lastpx"]-df["ask0"])/ (df["lastpx"]+df["ask0"])
+        df.loc[:,"diff(midpx-tradeBuyHigh)"] = deal_Na_Inf(col[59])
+        feature["diff(lastpx-ask0)"] = df.loc[:,"diff(lastpx-ask0)"]
+        ###feature60
+        col[60] = (df["open"]-df["bid0"])/ (df["open"]+df["bid0"])
+        df.loc[:,"diff(open-bid0)"] = deal_Na_Inf(col[60])
+        feature["diff(open-bid0)"] = df.loc[:,"diff(open-bid0)"]
+        ###feature61
+        col[61] = (df["low"]-df["ask0"])/ (df["low"]+df["ask0"])
+        df.loc[:,"diff(low-ask0)"] = deal_Na_Inf(col[61])
+        feature["diff(low-ask0)"] = df.loc[:,"diff(low-ask0)"]
+        ###feature62
+        col[62] = (df["open"]-df["low"])/ (df["open"]+df["tlow"])
+        df.loc[:,"diff(open-low)"] = deal_Na_Inf(col[62])
+        feature["diff(open-low)"] = df.loc[:,"diff(open-low)"]
+        ###feature63
+        col[63] = (df["nAddBuy"]-df["nAddSell"])/ (df["nAddBuy"]+df["nAddSell"])
+        df.loc[:,"diff(nAddBuy-nAddSell)"] = deal_Na_Inf(col[63])
+        feature["diff(nAddBuy-nAddSell)"] = df.loc[:,"diff(nAddBuy-nAddSell)"]
+        ###feature64
+        col[64] = (df["addBuyQty"]-df["addSellQty"])/ (df["addBuyQty"]+df["addSellQty"])
+        df.loc[:,"diff(addBuyQty-addSellQty)"] = deal_Na_Inf(col[64])
+        feature["diff(addBuyQty-addSellQty)"] = df.loc[:,"diff(addBuyQty-addSellQty)"]
+        ###feature65
+        col[65] = (df["addBuyTurnover"]-df["addSellTurnover"])/ (df["addBuyTurnover"]+df["addSellTurnover"])
+        df.loc[:,"diff(addBuyTurnover-addSellTurnover)"] = deal_Na_Inf(col[65])
+        feature["diff(addBuyTurnover-addSellTurnover)"] = df.loc[:,"diff(addBuyTurnover-addSellTurnover)"]
+        ###feature66
+        col[66] = (df["nCxlBuy"]-df["nCxlSell"])/ (df["nCxlBuy"]+df["nCxlSell"])
+        df.loc[:,"diff(nCxlBuy-nCxlSell)"] = deal_Na_Inf(col[66])
+        feature["diff(nCxlBuy-nCxlSell)"] = df.loc[:,"diff(nCxlBuy-nCxlSell)"]
+        ###feature67
+        col[67] = (df["cxlBuyQty"]-df["cxlSellQty"])/ (df["cxlBuyQty"]+df["cxlSellQty"])
+        df.loc[:,"diff(cxlBuyQty-cxlSellQty)"] = deal_Na_Inf(col[67])
+        feature["diff(cxlBuyQty-cxlSellQty)"] = df.loc[:,"diff(cxlBuyQty-cxlSellQty)"]
+        ###feature68
+        col[68] = (df["cxlBuyTurnover"]-df["cxlSellTurnover"])/ (df["cxlBuyTurnover"]+df["cxlSellTurnover"])
+        df.loc[:,"diff(cxlBuyTurnover-cxlSellTurnover)"] = deal_Na_Inf(col[68])
+        feature["diff(cxlBuyTurnover-cxlSellTurnover)"] = df.loc[:,"diff(cxlBuyTurnover-cxlSellTurnover)"]
+        ###feature69
+        col[69] = (df["nTradeBuy"]-df["nTradeSell"])/ (df["nTradeBuy"]+df["nTradeSell"])
+        df.loc[:,"diff(nTradeBuy-nTradeSell)"] = deal_Na_Inf(col[69])
+        feature["diff(nTradeBuy-nTradeSell)"] = df.loc[:,"diff(nTradeBuy-nTradeSell)"]
+        ###feature70
+        col[70] = (df["tradeBuyQty"]-df["tradeSellQty"])/ (df["tradeBuyQty"]+df["tradeSellQty"])
+        df.loc[:,"diff(tradeBuyQty-tradeSellQty)"] = deal_Na_Inf(col[70])
+        feature["diff(tradeBuyQty-tradeSellQty)"] = df.loc[:,"diff(tradeBuyQty-tradeSellQty)"]
+        ###feature71
+        col[71] = (df["tradeBuyTurnover"]-df["tradeSellTurnover"])/ (df["tradeBuyTurnover"]+df["tradeSellTurnover"])
+        df.loc[:,"diff(tradeBuyTurnover-tradeSellTurnover)"] = deal_Na_Inf(col[71])
+        feature["diff(tradeBuyTurnover-tradeSellTurnover)"] = df.loc[:,"diff(tradeBuyTurnover-tradeSellTurnover)"]
         
-        
-        
-        
-        ### feature
+        ### feature72
         df.loc[:, "bret12"] = (df["midpx"] - df["midpx"].shift(12)) / df["midpx"].shift(12) # backward return
         cxbret = df.groupby("interval")[["bret12"]].mean().reset_index().rename(columns={"bret12": "cx_bret12"})
         df = df.merge(cxbret, on="interval", how="left")

@@ -60,7 +60,6 @@ corr-all-trend-sort.txt 对所有训练集的数据进行增减趋势分析。
 
 顺便写了一个处理读入的dataframe的异常值的函数，对于异常值的填充更加合理化。后续可以添加在读入数据之后的处理之中。（注意，如果使用除法，要处理除数为0或者除之后为inf的情况）
 
-
 ```python
 def dealDataFrame(df):
     """
@@ -76,6 +75,21 @@ def dealDataFrame(df):
         df[name] = df[name].fillna(mean_values)
     return df
 ```
+
+
+#### 3
+更新了 diff 类型数据的计算。计算公式 A,B为两列数据,$\frac{A-B}{A+B}$。
+
+产生的文件如下
+20230601-diff-sort.csv 对20230601单日的数据进行diff计算，并计算其与fret12的相关性。按照绝对值降序排列。
+
+corr-all-diff-sort.csv 对所有数据进行diff计算，并计算其与fret12的相关性。按照绝对值降序排列。
+
+我根据corr-all-diff-sort.csv的结果选出了7个feature，根据我个人的理解选择了9个feature，可以在feat_all_feature.py中看到我加入的feature。
+
+
+
+
 
 ## 模型建立
 
