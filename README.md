@@ -26,6 +26,7 @@ reference/Time-Series-Forecast 参考别人的代码仓库
 ## 数据分析
 
 ### 主要代码文件：`step1_data_analysis/da.ipynb`
+#### 1
 
 author:赵子豪
 对数据的简单处理
@@ -48,7 +49,33 @@ log-nAddBuy-nCxlBuy   表示 log(nAddBuy/nCxlBuy)
 
 low-open              表示 low/open
 
+#### 2
+更新了trend类型数据的计算。计算公式如下$\frac{ask0[i]-ask0[i-12]}{ask0[i-12]}$
 
+其产生的文件下如下：
+
+20230601-trend-sort.txt 对20230601单日的数据进行增减趋势分析。
+
+corr-all-trend-sort.txt 对所有训练集的数据进行增减趋势分析。
+
+顺便写了一个处理读入的dataframe的异常值的函数，对于异常值的填充更加合理化。后续可以添加在读入数据之后的处理之中。（注意，如果使用除法，要处理除数为0或者除之后为inf的情况）
+
+
+```python
+def dealDataFrame(df):
+    """
+    处理一个dataframe，修正其中的np.nan np.inf，使其变为与缺失值所在行股票编号相同的平均值。
+    不会处理0，需要额外对于0的处理。
+    """
+    column_name = df.columns[3:]
+    for name in column_name:
+        df = df.replace(np.inf,np.nan)
+        # 计算每组的均值
+        mean_values = df.groupby('symbol')[name].transform('mean')
+        mean_values = mean_values.fillna(mean_values.mean())
+        df[name] = df[name].fillna(mean_values)
+    return df
+```
 
 ## 模型建立
 
