@@ -254,6 +254,7 @@ class MeowFeatureGenerator(object):
         col[35] = df["trade_imb"].ewm(halflife=5).mean()
         df.loc[:, "trade_imbema5"] = deal_Na_Inf(col[35],1,1)
         feature["trade_imbema5"] = df.loc[:,"trade_imbema5"]
+        ###trend类型feature
         ### feature36
         shift = df["nCxlSell"].shift(periods=12,fill_value=df["nCxlSell"].mean())
         shift = shift.replace(0,shift.mean())
@@ -326,60 +327,54 @@ class MeowFeatureGenerator(object):
         col[47] = (df["tradeSellQty"]-shift)/shift
         df.loc[:,"trend-tradeSellQty"] = deal_Na_Inf(col[47])
         feature["trend-tradeSellQty"] = df.loc[:,"trend-tradeSellQty"]
-        ### feature48
-        shift = df["tradeSellQty"].shift(periods=12,fill_value=df["tradeSellQty"].mean())
-        shift = shift.replace(0,shift.mean())
-        col[48] = (df["tradeSellQty"]-shift)/shift
-        df.loc[:,"trend-tradeSellQty"] = deal_Na_Inf(col[48])
-        feature["trend-tradeSellQty"] = df.loc[:,"trend-tradeSellQty"]
         ############corr不明显，但是比较有意义的trend
-        ### feature49
+        ### feature48
         shift = df["open"].shift(periods=12,fill_value=df["open"].mean())
         shift = shift.replace(0,shift.mean())
-        col[49] = (df["open"]-shift)/shift
-        df.loc[:,"trend-open"] = deal_Na_Inf(col[49])
+        col[48] = (df["open"]-shift)/shift
+        df.loc[:,"trend-open"] = deal_Na_Inf(col[48])
         feature["trend-open"] = df.loc[:,"trend-open"]
-        ### feature50
+        ### feature49
         shift = df["high"].shift(periods=12,fill_value=df["high"].mean())
         shift = shift.replace(0,shift.mean())
-        col[50] = (df["high"]-shift)/shift
-        df.loc[:,"trend-high"] = deal_Na_Inf(col[50])
+        col[49] = (df["high"]-shift)/shift
+        df.loc[:,"trend-high"] = deal_Na_Inf(col[49])
         feature["trend-high"] = df.loc[:,"trend-high"]
-        ### feature51
+        ### feature50
         shift = df["low"].shift(periods=12,fill_value=df["low"].mean())
         shift = shift.replace(0,shift.mean())
-        col[51] = (df["low"]-shift)/shift
-        df.loc[:,"trend-low"] = deal_Na_Inf(col[51])
+        col[50] = (df["low"]-shift)/shift
+        df.loc[:,"trend-low"] = deal_Na_Inf(col[50])
         feature["trend-low"] = df.loc[:,"trend-low"]
-        ### feature52
+        ### feature51
         shift = df["bid0"].shift(periods=12,fill_value=df["bid0"].mean())
         shift = shift.replace(0,shift.mean())
-        col[52] = (df["bid0"]-shift)/shift
-        df.loc[:,"trend-bid0"] = deal_Na_Inf(col[52])
+        col[51] = (df["bid0"]-shift)/shift
+        df.loc[:,"trend-bid0"] = deal_Na_Inf(col[51])
         feature["trend-bid0"] = df.loc[:,"trend-bid0"]
-        ### feature53
+        ### feature52
         shift = df["ask0"].shift(periods=12,fill_value=df["ask0"].mean())
         shift = shift.replace(0,shift.mean())
-        col[53] = (df["ask0"]-shift)/shift
-        df.loc[:,"trend-ask0"] = deal_Na_Inf(col[53])
+        col[52] = (df["ask0"]-shift)/shift
+        df.loc[:,"trend-ask0"] = deal_Na_Inf(col[52])
         feature["trend-ask0"] = df.loc[:,"trend-ask0"]
-        ### feature54
+        ### feature53
         shift = df["bid19"].shift(periods=12,fill_value=df["bid19"].mean())
         shift = shift.replace(0,shift.mean())
-        col[54] = (df["bid19"]-shift)/shift
-        df.loc[:,"trend-bid19"] = deal_Na_Inf(col[54])
+        col[53] = (df["bid19"]-shift)/shift
+        df.loc[:,"trend-bid19"] = deal_Na_Inf(col[53])
         feature["trend-bid19"] = df.loc[:,"trend-bid19"]
-        ### feature55
+        ### feature54
         shift = df["ask19"].shift(periods=12,fill_value=df["ask19"].mean())
         shift = shift.replace(0,shift.mean())
-        col[55] = (df["ask19"]-shift)/shift
-        df.loc[:,"trend-ask19"] = deal_Na_Inf(col[55])
+        col[54] = (df["ask19"]-shift)/shift
+        df.loc[:,"trend-ask19"] = deal_Na_Inf(col[54])
         feature["trend-ask19"] = df.loc[:,"trend-ask19"]
-        ### feature56
+        ### feature55
         shift = df["btr10_19"].shift(periods=12,fill_value=df["btr10_19"].mean())
         shift = shift.replace(0,shift.mean())
-        col[56] = (df["btr10_19"]-shift)/shift
-        df.loc[:,"trend-btr10_19"] = deal_Na_Inf(col[56])
+        col[55] = (df["btr10_19"]-shift)/shift
+        df.loc[:,"trend-btr10_19"] = deal_Na_Inf(col[55])
         feature["trend-btr10_19"] = df.loc[:,"trend-btr10_19"]
         
         
