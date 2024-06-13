@@ -138,9 +138,7 @@ XGBoost(72 features, 'n_estimators': 100,
             'min_child_weight': 3,
             'eta': 0.3,
             'seed': 1000,
-            'nthread': 4):
-
-Meow evaluation summary: Pearson correlation=0.132621148659139, R2=0.015362901662225, MSE=0.000023390049179
+            'nthread': 4):Meow evaluation summary: Pearson correlation=0.132621148659139, R2=0.015362901662225, MSE=0.000023390049179
 
 XGBoost(82 features, 'n_estimators': 100,
             'booster': 'gbtree',
@@ -152,9 +150,7 @@ XGBoost(82 features, 'n_estimators': 100,
             'min_child_weight': 3,
             'eta': 0.3,
             'seed': 1000,
-            'nthread': 4):
-
-Meow evaluation summary: Pearson correlation=0.042762092957075, R2=-0.409263039603044, MSE=0.000033477036218
+            'nthread': 4):Meow evaluation summary: Pearson correlation=0.042762092957075, R2=-0.409263039603044, MSE=0.000033477036218
 
 XGBoost(78 features(去掉时间和数量基础特征), 'n_estimators': 100,
             'booster': 'gbtree',
@@ -166,8 +162,7 @@ XGBoost(78 features(去掉时间和数量基础特征), 'n_estimators': 100,
             'min_child_weight': 3,
             'eta': 0.3,
             'seed': 1000,
-            'nthread': 4):
-Meow evaluation summary: Pearson correlation=0.137069601064915, R2=0.017185462925854, MSE=0.000023346754246
+            'nthread': 4):Meow evaluation summary: Pearson correlation=0.137069601064915, R2=0.017185462925854, MSE=0.000023346754246
 
 ### 修改记录
 
