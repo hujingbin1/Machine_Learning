@@ -28,6 +28,13 @@ def log_fun(col):
 	col = np.log(col)
 	return col
 
+def normalize(group):
+    # 计算最大值和最小值，用于归一化
+    min_val = group.min()
+    max_val = group.max()
+    # 归一化公式：(x - min) / (max - min)，并保留两位小数（可选）
+    return (group - min_val) / (max_val - min_val)
+
 class MeowFeatureGenerator(object):
     @classmethod
     def featureNames(cls):
@@ -120,8 +127,11 @@ class MeowFeatureGenerator(object):
             "atr10_19/asize10_19",
             "btr10_19/bsize10_19"
             ### 基础特征
-            
-            
+            "norm-tradeBuyQty",
+            "norm-tradeSellQty",
+            ### 时间特征
+            "week-day", #星期几
+            "continue-time" #这只股票开盘的时间/10
         ]
 
     def __init__(self, cacheDir):
@@ -491,8 +501,25 @@ class MeowFeatureGenerator(object):
         col[77] = (df["btr10_19"]/df["bsize10_19"])
         df.lloc[:,"btr10_19/bsize10_19"] = deal_Na_Inf(col[77])
         feature["btr10_19/bsize10_19"] = df.loc[:,"btr10_19/bsize10_19"]
+        ###feature78 - "norm-tradeBuyQty" 
+        col[78] = df.groupby("symbol")["tradeBuyQty"].apply(normalize).reset_index()["B1"]*10
+        df.lloc[:,"norm-tradeBuyQty"] = deal_Na_Inf(col[78])
+        feature["norm-tradeBuyQty"] = df.loc[:,"norm-tradeBuyQty"]
+        ###feature79 - "norm-tradeBuyQty" 
+        col[79] = df.groupby("symbol")["tradeSellQty"].apply(normalize).reset_index()["B1"]*10
+        df.loc[:,"norm-tradeSellQty"] = deal_Na_Inf(col[79])
+        feature["norm-tradeSellQty"] = df.loc[:,"norm-tradeSellQty"]
+        ###feature80
+        col[80] = (df["date"]+4)%7+1
+        df.loc[:,"week-day"] = deal_Na_Inf(col[80])
+        feature["week-day"] = df.loc[:,"week-day"]
+        ###feature81
+        col[81] = df.groupby('symbol').cumcount() + 1
+        df.loc[:,"continue-time"] = col[81]/10
+        feature["continue-time"] = df.loc[:,"continue-time"]
         
-        ### feature78
+        
+        ### feature82
         df.loc[:, "bret12"] = (df["midpx"] - df["midpx"].shift(12)) / df["midpx"].shift(12) # backward return
         cxbret = df.groupby("interval")[["bret12"]].mean().reset_index().rename(columns={"bret12": "cx_bret12"})
         df = df.merge(cxbret, on="interval", how="left")
@@ -500,8 +527,6 @@ class MeowFeatureGenerator(object):
         
         
         ###
-        
-        
         xdf = df[self.mcols + self.featureNames()].set_index(self.mcols)
         ydf = df[self.mcols + [self.ycol]].set_index(self.mcols)
         return xdf.fillna(0), ydf.fillna(0)
