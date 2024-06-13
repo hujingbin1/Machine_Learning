@@ -93,6 +93,14 @@ corr-all-diff-sort.csv 对所有数据进行diff计算，并计算其与fret12�
 
 加入6个手工特征，思路来源于 https://xueqiu.com/8188497048/198528860
 
+加入2个基础feature，"norm-tradeBuyQty","norm-tradeSellQty"。
+
+加入2个时间feature
+
+week-day ：表示星期几
+
+continue-time : 表示开盘的时间（单位：min）/10
+
 
 ## 模型建立
 
