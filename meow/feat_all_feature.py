@@ -110,12 +110,15 @@ class MeowFeatureGenerator(object):
             "diff(cxlBuyTurnover-cxlSellTurnover)",
             "diff(nTradeBuy-nTradeSell)",
             "diff(tradeBuyQty-tradeSellQty)",
-            "diff(tradeBuyTurnover-tradeSellTurnover)"
-            
+            "diff(tradeBuyTurnover-tradeSellTurnover)",
             
             ###手工制作特征
-            
-            
+            "(ask0/bid0)-1",
+            "wap0",
+            "atr0_4/asize0_4",
+            "btr0_4/bsize0_4",
+            "atr10_19/asize10_19",
+            "btr10_19/bsize10_19"
             ### 基础特征
             
             
@@ -463,12 +466,38 @@ class MeowFeatureGenerator(object):
         col[71] = (df["tradeBuyTurnover"]-df["tradeSellTurnover"])/ (df["tradeBuyTurnover"]+df["tradeSellTurnover"])
         df.loc[:,"diff(tradeBuyTurnover-tradeSellTurnover)"] = deal_Na_Inf(col[71])
         feature["diff(tradeBuyTurnover-tradeSellTurnover)"] = df.loc[:,"diff(tradeBuyTurnover-tradeSellTurnover)"]
+        #######加入6个手工特征
+        ###feature72
+        col[72] = (df["ask0"]/df["bid0"]-1)
+        df.loc[:,"(ask0/bid0)-1"] = deal_Na_Inf(col[72])
+        feature["(ask0/bid0)-1"] = df.loc[:,"(ask0/bid0)-1"]
+        ###feature73
+        col[73] = (df["bid0"]*df["asize0"]+df["ask0"]*df["bsize0"])/(df["bsize0"]+df["asize0"])
+        df.loc[:,"wap0"] = deal_Na_Inf(col[73])
+        feature["wap0"] = df.loc[:,"wap0"]
+        ###feature74
+        col[74] = (df["atr0_4"]/df["asize0_4"])
+        df.lloc[:,"atr0_4/asize0_4"] = deal_Na_Inf(col[74])
+        feature["atr0_4/asize0_4"] = df.loc[:,"atr0_4/asize0_4"]
+        ###feature75-"btr0_4/bsize0_4",
+        col[75] = (df["btr0_4"]/df["bsize0_4"])
+        df.lloc[:,"btr0_4/bsize0_4"] = deal_Na_Inf(col[75])
+        feature["btr0_4/bsize0_4"] = df.loc[:,"btr0_4/bsize0_4"]
+        ###feature76 -"atr10_19/asize10_19"
+        col[76] = (df["atr10_19"]/df["asize10_19"])
+        df.lloc[:,"atr10_19/asize10_19"] = deal_Na_Inf(col[76])
+        feature["atr10_19/asize10_19"] = df.loc[:,"atr10_19/asize10_19"]
+        ###feature77-"btr10_19/bsize10_19"
+        col[77] = (df["btr10_19"]/df["bsize10_19"])
+        df.lloc[:,"btr10_19/bsize10_19"] = deal_Na_Inf(col[77])
+        feature["btr10_19/bsize10_19"] = df.loc[:,"btr10_19/bsize10_19"]
         
-        ### feature72
+        ### feature78
         df.loc[:, "bret12"] = (df["midpx"] - df["midpx"].shift(12)) / df["midpx"].shift(12) # backward return
         cxbret = df.groupby("interval")[["bret12"]].mean().reset_index().rename(columns={"bret12": "cx_bret12"})
         df = df.merge(cxbret, on="interval", how="left")
         df.loc[:, "lagret12"] = df["bret12"] - df["cx_bret12"]
+        
         
         ###
         
