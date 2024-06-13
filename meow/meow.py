@@ -45,6 +45,6 @@ class MeowEngine(object):
 
 if __name__ == "__main__":
     engine = MeowEngine(h5dir="./dataset/h5", cacheDir=None)
-    engine.fit(20230601, 20231129)
+    # engine.fit(20230601, 20231129)
     engine.eval(20231201, 20231229)
 

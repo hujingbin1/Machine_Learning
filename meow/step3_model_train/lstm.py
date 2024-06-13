@@ -2,12 +2,13 @@ import os
 import torch
 import torch.nn as nn
 from log import log
+import torch.nn.functional as F  # 导入激活函数模块
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
 class LSTMNet(nn.Module):
-    def __init__(self, input_dim, hidden_dim, n_layers, out_dim, dropout=0.5):
+    def __init__(self, input_dim, hidden_dim, n_layers, out_dim, dropout):
         super(LSTMNet, self).__init__()
         self.hidden_dim = hidden_dim
         self.n_layers = n_layers
@@ -22,5 +23,6 @@ class LSTMNet(nn.Module):
         x = x.view(s*b, h) # 1024*20
         x = self.dropout(x)  # 应用Dropout
         x = self.fc(x)  #1024*1
+        # x = F.sigmoid(x)  # 添加ReLU激活函数  # 修改这里
         x = x.view(s, b, -1)
         return x

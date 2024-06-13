@@ -52,7 +52,7 @@ class MeowFeatureGenerator(object):
             "log-nAddSell-nTradeBuy",
             "log-nTradeBuy-nCxlBuy",
             "log-sellVwad-addBuyQty",
-            "log-tradeBuyQty-atr5_9"
+            "log-tradeBuyQty-atr5_9",
             "nCxlBuy-nAddBuy",
             "log-nAddBuy-atr5_9",
             "log-tradeSellLow-nAddBuy",
@@ -216,9 +216,9 @@ class MeowFeatureGenerator(object):
         #feature21
         col[21] = (df["nCxlBuy"]/df["nAddBuy"])
         df.loc[:,"nCxlBuy-nAddBuy"] = div_fun(col[21])
-        feature["nCxlBuy-nAddBuy"] = df.log[:,"nCxlBuy-nAddBuy"]
+        feature["nCxlBuy-nAddBuy"] = df.loc[:,"nCxlBuy-nAddBuy"]
         #feature22
-        col[22] = (df["nAddbuy"]/df["atr5_9"])
+        col[22] = (df["nAddBuy"]/df["atr5_9"])
         df.loc[:,"log-nAddBuy-atr5_9"] = log_fun(col[22])
         feature["log-nAddBuy-atr5_9"] = df.loc[:,"log-nAddBuy-atr5_9"]
         #feature23
@@ -257,7 +257,7 @@ class MeowFeatureGenerator(object):
         "延用老师提供的feature"
         ### feature31
         col[31] = (df["asize0"] - df["bsize0"]) / (df["asize0"] + df["bsize0"])
-        df.loc[:, "ob_imb0"] = deal_Na_Inf(col[31,1,1])
+        df.loc[:, "ob_imb0"] = deal_Na_Inf(col[31],1,1)
         feature["ob_imb0"] = df.loc[:,"ob_imb0"]
         ### feature32
         col[32] = (df["asize0_4"] - df["bsize0_4"]) / (df["asize0_4"] + df["bsize0_4"])
@@ -413,7 +413,7 @@ class MeowFeatureGenerator(object):
         feature["diff(midpx-lastpx)"] = df.loc[:,"diff(midpx-lastpx)"]
         ###feature59
         col[59] = (df["lastpx"]-df["ask0"])/ (df["lastpx"]+df["ask0"])
-        df.loc[:,"diff(midpx-tradeBuyHigh)"] = deal_Na_Inf(col[59])
+        df.loc[:,"diff(lastpx-ask0)"] = deal_Na_Inf(col[59])
         feature["diff(lastpx-ask0)"] = df.loc[:,"diff(lastpx-ask0)"]
         ###feature60
         col[60] = (df["open"]-df["bid0"])/ (df["open"]+df["bid0"])
@@ -424,7 +424,7 @@ class MeowFeatureGenerator(object):
         df.loc[:,"diff(low-ask0)"] = deal_Na_Inf(col[61])
         feature["diff(low-ask0)"] = df.loc[:,"diff(low-ask0)"]
         ###feature62
-        col[62] = (df["open"]-df["low"])/ (df["open"]+df["tlow"])
+        col[62] = (df["open"]-df["low"])/ (df["open"]+df["low"])
         df.loc[:,"diff(open-low)"] = deal_Na_Inf(col[62])
         feature["diff(open-low)"] = df.loc[:,"diff(open-low)"]
         ###feature63

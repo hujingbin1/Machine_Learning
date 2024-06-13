@@ -15,4 +15,4 @@ class MeowEvaluator(object):
         pcor = ydf[[self.predictionCol, self.ycol]].corr().to_numpy()[0, 1]
         r2 = 1 - ((ydf[self.predictionCol] - ydf[self.ycol]) ** 2).sum() / ydf[self.ycol].var() / ydf.shape[0]
         mse = ((ydf[self.predictionCol] - ydf[self.ycol]) ** 2).sum() / ydf.shape[0]
-        log.inf("Meow evaluation summary: Pearson correlation={:.4f}, R2={:.5f}, MSE={:.2f}".format(pcor, r2, mse))
+        log.inf("Meow evaluation summary: Pearson correlation={:.15f}, R2={:.15f}, MSE={:.15f}".format(pcor, r2, mse))

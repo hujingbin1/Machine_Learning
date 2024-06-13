@@ -14,7 +14,7 @@ print(f'Using device: {device}')
 class MeowModel(object):
     def __init__(self, cacheDir):
         self.estimator = Ridge(
-            alpha=0.5,
+            alpha=0.1,
             random_state=None,
             fit_intercept=False,
             tol=1e-8

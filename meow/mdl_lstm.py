@@ -12,7 +12,7 @@ import numpy as np
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f'Using device: {device}')
 class MeowModel(object):
-    def __init__(self, cacheDir,input_dim=20, hidden_dim=16, n_layers=2, out_dim=1, learning_rate=0.005, batchsize = 65535, n_epochs=10, dropout=0):
+    def __init__(self, cacheDir,input_dim=72, hidden_dim=128, n_layers=3, out_dim=1, learning_rate=0.001, batchsize = 2048, n_epochs=100, dropout=0):
         self.input_dim = input_dim
         self.hidden_dim = hidden_dim
         self.n_layers = n_layers
@@ -23,7 +23,7 @@ class MeowModel(object):
         # 显式地将模型置于目标设备上
         self.model = lstm.LSTMNet(input_dim, hidden_dim, n_layers, out_dim, dropout).to(device)
         self.criterion = nn.MSELoss()
-        self.optimizer = optim.SGD(self.model.parameters(), lr=learning_rate)
+        self.optimizer = optim.Adam(self.model.parameters(), lr=learning_rate)
         self.best_loss = 100000
         
     def fit(self, xdf, ydf):
@@ -34,6 +34,7 @@ class MeowModel(object):
         
         torch.autograd.set_detect_anomaly(True)
         cnt = 0
+        loss_list = []
         for epoch in range(self.n_epochs):
             for inputs, targets in dataloader:
                 cnt += 1
@@ -47,9 +48,10 @@ class MeowModel(object):
                 self.optimizer.step()
                 self.optimizer.zero_grad()
                 print(cnt)
+                loss_list.append(loss)
 			# 每个epoch结束时检查是否需要保存模型
-            if loss < self.best_loss:
-                self.best_loss = loss
+            if (sum(loss_list)/len(loss_list)) < self.best_loss:
+                self.best_loss = sum(loss_list)/len(loss_list)
                 self.best_model_weights = self.model.state_dict()  # 保存当前最佳模型的权重
                 torch.save(self.model.state_dict(), 'best_model.pth')
                 log.inf(f'Epoch {epoch}: Loss improved. Saving best model so far.')
