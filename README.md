@@ -91,7 +91,7 @@ corr-all-diff-sort.csv 对所有数据进行diff计算，并计算其与fret12�
 
 #### 4
 
-加入6个手工特征，思路来源于 https://xueqiu.com/8188497048/198528860
+加入6个手工特征，思路来源于 <https://xueqiu.com/8188497048/198528860>
 
 加入2个基础feature，"norm-tradeBuyQty","norm-tradeSellQty"。
 
@@ -100,7 +100,6 @@ corr-all-diff-sort.csv 对所有数据进行diff计算，并计算其与fret12�
 week-day ：表示星期几
 
 continue-time : 表示开盘的时间（单位：min）/10
-
 
 ## 模型建立
 
@@ -111,9 +110,13 @@ meow/step3_model_train/lstm.py 为LSTM网络建立文件，可以在这里修改
 
 meow/mdl.py为Ridge线性模型
 meow/mdl_lstm.py为LSTM模型
+meow/mdl_XGBoost.py为XGBoost模型
 
 `python meow.py`训练Ridge线性回归模型 并进行推理
 `python meow_lstm.py`训练LSTM模型 并进行推理
+`python meow_XGBoost.py`训练XGBoost决策树模型 并进行推理
+
+xgboost_model.json为存储的XGBoost模型的权重信息，可以直接读取进行推理
 
 ## 结果记录
 
@@ -122,6 +125,49 @@ hjb进行了模型测试和结果记录
 LSTM（72 features）: Meow evaluation summary: Pearson correlation=0.107296385683008, R2=-0.000476972814861, MSE=0.000023766325315
 
 Ridge（72 features）: Meow evaluation summary: Pearson correlation=0.131434137144724, R2=0.017256343648482, MSE=0.000023345070475
+
+Ridge（78 features）:Meow evaluation summary: Pearson correlation=0.131807431710562, R2=0.017361341592724, MSE=0.000023342576249
+
+XGBoost(72 features, 'n_estimators': 100,
+            'booster': 'gbtree',
+            'objective': 'reg:squarederror',
+            'max_depth': 7,
+            'lambda': 3,
+            'subsample': 0.7,
+            'colsample_bytree': 1,
+            'min_child_weight': 3,
+            'eta': 0.3,
+            'seed': 1000,
+            'nthread': 4):
+
+Meow evaluation summary: Pearson correlation=0.132621148659139, R2=0.015362901662225, MSE=0.000023390049179
+
+XGBoost(82 features, 'n_estimators': 100,
+            'booster': 'gbtree',
+            'objective': 'reg:squarederror',
+            'max_depth': 7,
+            'lambda': 3,
+            'subsample': 0.9,
+            'colsample_bytree': 1,
+            'min_child_weight': 3,
+            'eta': 0.3,
+            'seed': 1000,
+            'nthread': 4):
+
+Meow evaluation summary: Pearson correlation=0.042762092957075, R2=-0.409263039603044, MSE=0.000033477036218
+
+XGBoost(78 features(去掉时间和数量基础特征), 'n_estimators': 100,
+            'booster': 'gbtree',
+            'objective': 'reg:squarederror',
+            'max_depth': 7,
+            'lambda': 3,
+            'subsample': 0.9,
+            'colsample_bytree': 1,
+            'min_child_weight': 3,
+            'eta': 0.3,
+            'seed': 1000,
+            'nthread': 4):
+Meow evaluation summary: Pearson correlation=0.137069601064915, R2=0.017185462925854, MSE=0.000023346754246
 
 ### 修改记录
 
@@ -134,6 +180,8 @@ zzh在feat_all_feature中增加了部分特征，通过注释将他们进行了�
 对于log计算，为了避免log(x)，在x趋近于0的时候，log(x)接近负无穷，所以在x小于1的时候，置x=1,但是对于普通的除法，有必要在x<1的时候置1吗？
 
 hjb在feat_all_features中修改了拼写错误
+
+hjb在feat_all_features中再次修改了拼写错误，去掉了时间特征和基础特征，发现效果提升；加上这两种特征，效果下降很明显
 
 ### meow_lstm
 

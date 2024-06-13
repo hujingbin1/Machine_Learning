@@ -125,13 +125,13 @@ class MeowFeatureGenerator(object):
             "atr0_4/asize0_4",
             "btr0_4/bsize0_4",
             "atr10_19/asize10_19",
-            "btr10_19/bsize10_19"
+            "btr10_19/bsize10_19",
             ### 基础特征
-            "norm-tradeBuyQty",
-            "norm-tradeSellQty",
+            # "norm-tradeBuyQty",
+            # "norm-tradeSellQty",
             ### 时间特征
-            "week-day", #星期几
-            "continue-time" #这只股票开盘的时间/10
+            # "week-day", #星期几
+            # "continue-time" #这只股票开盘的时间/10
         ]
 
     def __init__(self, cacheDir):
@@ -487,27 +487,29 @@ class MeowFeatureGenerator(object):
         feature["wap0"] = df.loc[:,"wap0"]
         ###feature74
         col[74] = (df["atr0_4"]/df["asize0_4"])
-        df.lloc[:,"atr0_4/asize0_4"] = deal_Na_Inf(col[74])
+        df.loc[:,"atr0_4/asize0_4"] = deal_Na_Inf(col[74])
         feature["atr0_4/asize0_4"] = df.loc[:,"atr0_4/asize0_4"]
         ###feature75-"btr0_4/bsize0_4",
         col[75] = (df["btr0_4"]/df["bsize0_4"])
-        df.lloc[:,"btr0_4/bsize0_4"] = deal_Na_Inf(col[75])
+        df.loc[:,"btr0_4/bsize0_4"] = deal_Na_Inf(col[75])
         feature["btr0_4/bsize0_4"] = df.loc[:,"btr0_4/bsize0_4"]
         ###feature76 -"atr10_19/asize10_19"
         col[76] = (df["atr10_19"]/df["asize10_19"])
-        df.lloc[:,"atr10_19/asize10_19"] = deal_Na_Inf(col[76])
+        df.loc[:,"atr10_19/asize10_19"] = deal_Na_Inf(col[76])
         feature["atr10_19/asize10_19"] = df.loc[:,"atr10_19/asize10_19"]
         ###feature77-"btr10_19/bsize10_19"
         col[77] = (df["btr10_19"]/df["bsize10_19"])
-        df.lloc[:,"btr10_19/bsize10_19"] = deal_Na_Inf(col[77])
+        df.loc[:,"btr10_19/bsize10_19"] = deal_Na_Inf(col[77])
         feature["btr10_19/bsize10_19"] = df.loc[:,"btr10_19/bsize10_19"]
         ###feature78 - "norm-tradeBuyQty" 
-        col[78] = df.groupby("symbol")["tradeBuyQty"].apply(normalize).reset_index()["B1"]*10
-        df.lloc[:,"norm-tradeBuyQty"] = deal_Na_Inf(col[78])
+        # col[78] = df.groupby("symbol")["tradeBuyQty"].apply(normalize).reset_index()["B1"]*10
+        col[78] = df["tradeBuyQty"]
+        df.loc[:,"norm-tradeBuyQty"] = deal_Na_Inf(10*normalize(col[78]))
         feature["norm-tradeBuyQty"] = df.loc[:,"norm-tradeBuyQty"]
         ###feature79 - "norm-tradeBuyQty" 
-        col[79] = df.groupby("symbol")["tradeSellQty"].apply(normalize).reset_index()["B1"]*10
-        df.loc[:,"norm-tradeSellQty"] = deal_Na_Inf(col[79])
+        # col[79] = df.groupby("symbol")["tradeSellQty"].apply(normalize).reset_index()["B1"]*10
+        col[79] = df["tradeSellQty"]
+        df.loc[:,"norm-tradeSellQty"] = deal_Na_Inf(10*normalize(col[79]))
         feature["norm-tradeSellQty"] = df.loc[:,"norm-tradeSellQty"]
         ###feature80
         col[80] = (df["date"]+4)%7+1

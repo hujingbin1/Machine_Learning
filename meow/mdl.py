@@ -6,7 +6,7 @@ from torch.optim import SGD
 from torch.utils.data import DataLoader, TensorDataset
 import torch.optim as optim
 from log import log
-from step3_model_train import lstm
+# from step3_model_train import lstm
 import numpy as np
 # 确定设备
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
