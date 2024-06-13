@@ -12,7 +12,7 @@ import numpy as np
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f'Using device: {device}')
 class MeowModel(object):
-    def __init__(self, cacheDir,input_dim=72, hidden_dim=128, n_layers=3, out_dim=1, learning_rate=0.001, batchsize = 2048, n_epochs=100, dropout=0):
+    def __init__(self, cacheDir,input_dim=78, hidden_dim=256, n_layers=3, out_dim=1, learning_rate=0.001, batchsize = 64, n_epochs=50, dropout=0):
         self.input_dim = input_dim
         self.hidden_dim = hidden_dim
         self.n_layers = n_layers
@@ -38,6 +38,13 @@ class MeowModel(object):
         for epoch in range(self.n_epochs):
             for inputs, targets in dataloader:
                 cnt += 1
+                # with open("./inputs.txt", 'w') as f:
+                #     f.write("input\n")
+                #     f.write(str(inputs))
+                #     f.write('\n')
+                #     f.write("targets\n")
+                #     f.write(str(targets))
+                #     f.write('\n')
                 # 将inputs和targets移动到device上
                 inputs = inputs.unsqueeze(1).to(device)# 增加序列长度维度，shape 变为 (batch_size, 1, 6)
                 targets = targets.to(device)
@@ -56,7 +63,7 @@ class MeowModel(object):
                 torch.save(self.model.state_dict(), 'best_model.pth')
                 log.inf(f'Epoch {epoch}: Loss improved. Saving best model so far.')
             cnt = 0
-            log.inf(f'Epoch {epoch}: Loss = {loss.item()}')
+            log.inf(f'Epoch {epoch}: Loss = {sum(loss_list)/len(loss_list)}')
 
 		# 训练循环结束后，输出完成信息，并加载最佳模型参数
         log.inf(f'Done fitting after {self.n_epochs} epochs. Loading the best model.')

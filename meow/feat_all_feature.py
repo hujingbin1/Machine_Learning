@@ -20,7 +20,6 @@ def deal_Na_Inf(col,na_value = 1,inf_value = 1):
     
     return col
 
-
 def log_fun(col):
 	col = col.fillna(1)
 	col = col.replace(np.inf, 1)
