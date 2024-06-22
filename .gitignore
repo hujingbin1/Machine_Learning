@@ -1,0 +1,88 @@
+# .vscode
+# build
+# diff
+# diff.txt
+# arxiv.sh
+# __pycache__
+# *.pyc
+# *.bak
+# release
+# dist
+# *.egg-info
+# *.log
+# CMakeLists.txt
+# dask-worker-space
+# test/
+# data_analysis/
+# meow/dataset
+# 忽略所有IDE或编辑器产生的文件
+.vscode/
+.idea/
+*.sublime-workspace
+*.swp
+*.swo
+
+# 忽略编译生成的二进制文件和临时文件
+*.exe
+*.dll
+*.obj
+*.o
+*.a
+*.lib
+*.so
+*.class
+*.jar
+*.pyc
+*.rbc
+*.gemspec
+*.gem
+*.egg-info
+dist/
+build/
+target/
+*.log
+*.bak
+*.old
+*.tmp
+*.lock
+*.dump
+*.out
+*.cache
+*.pack
+*.sqlitedb
+*.sqlite-shm
+
+# 忽略版本控制和备份文件
+# .gitignore
+.gitattributes
+.DS_Store
+thumbs.db
+*.bak
+*.orig
+*.rej
+*.zip
+*.rar
+*.7z
+*.tar.gz
+*.tar.bz2
+*.tgz
+*.tar
+*.bak
+*.old
+*.env
+
+# 忽略测试相关的输出
+test-output/
+coverage/
+test/
+
+# 个人项目的特定忽略规则可以放在这里
+# 例如，如果你使用Python，可能还想忽略以下文件：
+*.py[cod]
+
+# 如果你的项目中有特定的文件或目录不想被版本控制，也可以在这里添加相应的规则
+*.h5
+*.csv
+*.xlsx
+*.pth
+*.pt

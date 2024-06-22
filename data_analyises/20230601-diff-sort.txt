@@ -1,0 +1,12 @@
+Correlation with fret12: diff(midpx-tradeBuyHigh)          -0.113328
+diff(bid0-tradeBuyHigh)           -0.112550
+diff(ask0-tradeBuyHigh)           -0.112271
+diff(bid0-tradeSellHigh)          -0.106495
+diff(bid0-addSellHigh)            -0.106158
+                                     ...   
+diff(atr5_9-addBuyLow)             0.000166
+diff(addBuyQty-addSellTurnover)   -0.000096
+diff(atr5_9-cxlSellHigh)          -0.000095
+diff(bid4-ask4)                   -0.000072
+diff(atr10_19-addBuyLow)           0.000066
+Name: Correlation with fret12, Length: 1711, dtype: float64
