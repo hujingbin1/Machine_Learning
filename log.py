@@ -15,8 +15,11 @@ class MeowLogger(object):
         now = datetime.now()
         frameInfo = getframeinfo(currentframe().f_back.f_back)
         if pid:
-            return "[\033[90m{}|\033[0m{}:{}|{}] ".format(now.strftime("%Y-%m-%dT%H:%M:%S.%f"), os.path.basename(frameInfo.filename), frameInfo.lineno, os.getpid())
-        return "[\033[90m{}|\033[0m{}:{}] ".format(now.strftime("%Y-%m-%dT%H:%M:%S.%f"), os.path.basename(frameInfo.filename), frameInfo.lineno)
+            return "[\033[90m{}|\033[0m{}:{}|{}] ".format(now.strftime("%Y-%m-%dT%H:%M:%S.%f"),
+                                                          os.path.basename(frameInfo.filename), frameInfo.lineno,
+                                                          os.getpid())
+        return "[\033[90m{}|\033[0m{}:{}] ".format(now.strftime("%Y-%m-%dT%H:%M:%S.%f"),
+                                                   os.path.basename(frameInfo.filename), frameInfo.lineno)
 
     def setLogFile(self, filename):
         if self.logf is not None:

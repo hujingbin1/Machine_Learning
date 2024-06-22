@@ -2,13 +2,15 @@ import os
 from log import log
 from dl import MeowDataLoader
 from feat_all_feature import MeowFeatureGenerator
-from mdl_lstm_attention import MeowModel #导入LSTM_Attention模型
+from mdl_lstm_attention import MeowModel  # 导入LSTM_Attention模型
 from eval import MeowEvaluator
 from tradingcalendar import Calendar
 import torch
 import numpy as np
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+
 class MeowEngine(object):
     def __init__(self, h5dir, cacheDir):
         self.calendar = Calendar()
@@ -41,8 +43,8 @@ class MeowEngine(object):
         ydf.loc[:, "forecast"] = self.predict(xdf)
         self.evaluator.eval(ydf)
 
+
 if __name__ == "__main__":
     engine = MeowEngine(h5dir="./dataset/h5", cacheDir=None)
     engine.fit(20230601, 20231129)
     engine.eval(20231201, 20231229)
-

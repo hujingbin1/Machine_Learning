@@ -9,11 +9,11 @@ from log import log
 from model import lstm
 import numpy as np
 
-
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f'Using device: {device}')
 
-#LSTM网络
+
+# LSTM网络
 class MeowModel(object):
     def __init__(self, cacheDir, input_dim=72, hidden_dim=128, n_layers=3, out_dim=1, learning_rate=0.001,
                  batchsize=2048, n_epochs=100, dropout=0):
@@ -35,7 +35,7 @@ class MeowModel(object):
                                 torch.tensor(ydf.to_numpy(), dtype=torch.float32).to(device))
         dataloader = DataLoader(dataset, batch_size=self.batch_size, shuffle=True, num_workers=0, drop_last=True)
         torch.autograd.set_detect_anomaly(True)
-        
+
         loss_list = []
         for epoch in range(self.n_epochs):
             for inputs, targets in dataloader:
@@ -48,7 +48,7 @@ class MeowModel(object):
                 self.optimizer.step()
                 self.optimizer.zero_grad()
                 loss_list.append(loss)
-                
+
             # 每个epoch结束时检查是否需要保存模型
             if (sum(loss_list) / len(loss_list)) < self.best_loss:
                 self.best_loss = sum(loss_list) / len(loss_list)
@@ -67,7 +67,7 @@ class MeowModel(object):
         self.model.load_state_dict(torch.load('best_model.pth'))
         self.model.eval()
 
-        X_tensor = X.clone().detach().to(torch.float32).to(device)        
+        X_tensor = X.clone().detach().to(torch.float32).to(device)
         all_predictions = []
         num_batches = (len(X_tensor) + batch_size - 1) // batch_size
         with torch.no_grad():

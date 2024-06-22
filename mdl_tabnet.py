@@ -14,9 +14,11 @@ import numpy as np
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
+
 def rmspe(y_true, y_pred):
     # Function to calculate the root mean squared percentage error
     return np.sqrt(np.mean(np.square((y_true - y_pred) / y_true)))
+
 
 class RMSPE(Metric):
     def __init__(self):
@@ -26,12 +28,15 @@ class RMSPE(Metric):
     def __call__(self, y_true, y_score):
         return np.sqrt(np.mean(np.square((y_true - y_score) / y_true)))
 
+
 def RMSPELoss(y_pred, y_true):
     return torch.sqrt(torch.mean(((y_true - y_pred) / y_true) ** 2)).clone()
 
-#tabnet网络
+
+# tabnet网络
 class MeowModel(object):
-    def __init__(self, cacheDir,input_dim=72, hidden_dim=128, n_layers=3, out_dim=1, learning_rate=0.001, batchsize = 2048, n_epochs=100, dropout=0):
+    def __init__(self, cacheDir, input_dim=72, hidden_dim=128, n_layers=3, out_dim=1, learning_rate=0.001,
+                 batchsize=2048, n_epochs=100, dropout=0):
         self.model = None
         self.input_dim = input_dim
         self.hidden_dim = hidden_dim
@@ -47,7 +52,7 @@ class MeowModel(object):
         types = X.dtypes
 
         categorical_columns = []
-        categorical_dims =  {}
+        categorical_dims = {}
 
         for col in X.columns:
             if col == 'symbol':
@@ -59,9 +64,8 @@ class MeowModel(object):
                 scaler = StandardScaler()
                 X[col] = scaler.fit_transform(X[col].values.reshape(-1, 1))
 
-        cat_idxs = [ i for i, f in enumerate(X.columns.tolist()) if f in categorical_columns]
-        cat_dims = [ categorical_dims[f] for i, f in enumerate(X.columns.tolist()) if f in categorical_columns]
-
+        cat_idxs = [i for i, f in enumerate(X.columns.tolist()) if f in categorical_columns]
+        cat_dims = [categorical_dims[f] for i, f in enumerate(X.columns.tolist()) if f in categorical_columns]
 
         tabnet_params = dict(
             cat_idxs=cat_idxs,
@@ -113,7 +117,5 @@ class MeowModel(object):
 
         print(f'OOF score across folds: {rmspe(y, predictions.flatten())}')
 
-
     def predict(self, X):
         preds = self.model.predict(X)
-

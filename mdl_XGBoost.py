@@ -3,7 +3,8 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import os
 
-#XGBoost模型
+
+# XGBoost模型
 class MeowModel(object):
     def __init__(self, cacheDir):
         self.model_path = os.path.join('./', "xgboost_model.json")
@@ -29,11 +30,9 @@ class MeowModel(object):
         self.model.fit(X, y)
         self.model.save_model(self.model_path)
 
-
     def predict(self, xdf):
         if self.model is None:
             self.model = xgb.XGBRegressor()
             self.model.load_model(self.model_path)
         X_new = xdf.to_numpy()
         return self.model.predict(X_new)
-

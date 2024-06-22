@@ -65,7 +65,7 @@ class Calendar(object):
         if index < n:
             log.yellow("Not enough days for prevn: date={},n={},index={}".format(date, n, index))
 
-        return self.tradingDays[max(index - n, 0) : index]
+        return self.tradingDays[max(index - n, 0): index]
 
     def nextn(self, date, n):
         if not isinstance(date, int):
@@ -89,7 +89,8 @@ class Calendar(object):
         if not isinstance(endDate, int):
             endDate = int(endDate)
         if startDate > endDate:
-            log.red("Invalid range - startDate is larger than endDate: startDate={},endDate={}".format(startDate, endDate))
+            log.red(
+                "Invalid range - startDate is larger than endDate: startDate={},endDate={}".format(startDate, endDate))
             return None
 
         startIndex = bisect.bisect_left(self.tradingDays, startDate)
@@ -98,4 +99,4 @@ class Calendar(object):
             return None
 
         endIndex = bisect.bisect_right(self.tradingDays, endDate)
-        return self.tradingDays[startIndex : endIndex]
+        return self.tradingDays[startIndex: endIndex]

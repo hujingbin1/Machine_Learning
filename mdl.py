@@ -10,7 +10,8 @@ import numpy as np
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-#Ridge模型
+
+# Ridge模型
 class MeowModel(object):
     def __init__(self, cacheDir):
         self.estimator = Ridge(

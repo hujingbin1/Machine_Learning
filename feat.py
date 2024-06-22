@@ -29,7 +29,7 @@ class MeowFeatureGenerator(object):
         df.loc[:, "ob_imb9"] = (df["asize5_9"] - df["bsize5_9"]) / (df["asize5_9"] + df["bsize5_9"])
         df.loc[:, "trade_imb"] = (df["tradeBuyQty"] - df["tradeSellQty"]) / (df["tradeBuyQty"] + df["tradeSellQty"])
         df.loc[:, "trade_imbema5"] = df["trade_imb"].ewm(halflife=5).mean()
-        df.loc[:, "bret12"] = (df["midpx"] - df["midpx"].shift(12)) / df["midpx"].shift(12) # backward return
+        df.loc[:, "bret12"] = (df["midpx"] - df["midpx"].shift(12)) / df["midpx"].shift(12)  # backward return
         cxbret = df.groupby("interval")[["bret12"]].mean().reset_index().rename(columns={"bret12": "cx_bret12"})
         df = df.merge(cxbret, on="interval", how="left")
         df.loc[:, "lagret12"] = df["bret12"] - df["cx_bret12"]

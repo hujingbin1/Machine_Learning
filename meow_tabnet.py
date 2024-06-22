@@ -2,13 +2,13 @@ import os
 from log import log
 from dl import MeowDataLoader
 from feat_all_feature import MeowFeatureGenerator
-from mdl_tabnet import MeowModel #导入tabnet网络
+from mdl_tabnet import MeowModel  # 导入tabnet网络
 from eval import MeowEvaluator
 from tradingcalendar import Calendar
 import torch
 
-
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
 
 class MeowEngine(object):
     def __init__(self, h5dir, cacheDir):
@@ -18,7 +18,7 @@ class MeowEngine(object):
             raise ValueError("Data directory not exists: {}".format(self.h5dir))
         if not os.path.isdir(h5dir):
             raise ValueError("Invalid data directory: {}".format(self.h5dir))
-        self.cacheDir = cacheDir # this is not used in sample code
+        self.cacheDir = cacheDir  # this is not used in sample code
         self.dloader = MeowDataLoader(h5dir=h5dir)
         self.featGenerator = MeowFeatureGenerator(cacheDir=cacheDir)
         self.model = MeowModel(cacheDir=cacheDir)
@@ -42,8 +42,8 @@ class MeowEngine(object):
         ydf.loc[:, "forecast"] = self.predict(xdf)
         self.evaluator.eval(ydf)
 
+
 if __name__ == "__main__":
     engine = MeowEngine(h5dir="./dataset/h5", cacheDir=None)
     engine.fit(20230601, 20231129)
     engine.eval(20231201, 20231229)
-
